@@ -16,4 +16,27 @@ describe('ParseTree',function(){
 		});
 	});
 
+	describe('representInWords',function(){
+		it('should represent a tree in words',function(){
+			var tree = new ParseTree(2,'+',2);
+			var expected = '(two plus two)';
+
+			assert.deepEqual(tree.representInWords(),expected);
+		});
+
+		it('should represent a tree in words for multiple operators',function(){
+			var tree = new ParseTree(2,'+',new ParseTree(3,'*',4));
+			var expected = '(two plus (three times four))';
+
+			assert.deepEqual(tree.representInWords(),expected);
+		});
+
+		it('should represent a tree in words for bigger numbers',function(){
+			var tree = new ParseTree(1000000000,'+',2);
+			var expected = '(one billion plus two)';
+
+			assert.deepEqual(tree.representInWords(),expected);
+		});
+	});	
+
 });
