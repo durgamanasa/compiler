@@ -26,7 +26,7 @@ expressions
 
 e
     : e '+' e
-        {}
+        {$$ = '('+$1+$2+$3+')'}
     | NUMBER
         {$$ = Number(yytext)}
     ;
