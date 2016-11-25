@@ -13,9 +13,16 @@ describe('Grammar',function(){
 		assert.deepEqual(tree,expectedTree);
 	});
 
-	it('should recognise input and return a tree for multiple operators',function(){
+	it('should recognise input and return a tree for nested tree',function(){
 		var tree = parser.parse('2+2+3');
 		var expectedTree = new ParseTree(new ParseTree(2,'+',2),'+',3);
+
+		assert.deepEqual(tree,expectedTree);
+	});
+
+	it('should recognise input and return a tree for multiple operators',function(){
+		var tree = parser.parse('2+2*3');
+		var expectedTree = new ParseTree(2,'+',new ParseTree(2,'*',3));
 
 		assert.deepEqual(tree,expectedTree);
 	});

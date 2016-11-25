@@ -10,11 +10,13 @@
 \s+       /* skip whitespace */
 \d+    return 'NUMBER'
 '+'       return '+'
+'*'       return '*'
 <<EOF>>   return 'EOF'
 
 /lex
 
 %left '+'
+%left '*'
 
 %start expressions
 
@@ -27,6 +29,8 @@ expressions
 
 e
     : e '+' e
+        {$$ = new ParseTree($1,$2,$3)}
+    | e '*' e
         {$$ = new ParseTree($1,$2,$3)}
     | NUMBER
         {$$ = Number(yytext)}
