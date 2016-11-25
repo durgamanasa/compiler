@@ -1,18 +1,22 @@
 var assert  = require('assert');
+
+var ParseTree = require('../src/parseTree.js');
 var Parser = require('jison').Parser;
 var grammar = require('fs').readFileSync('./src/grammar.jison','utf8');
 var parser = new Parser(grammar);
 
 describe('Grammar',function(){
-	it('should recognise a number',function(){
-		assert.equal(parser.parse('2'),2);
+	it('should recognise input and return a tree',function(){
+		var tree = parser.parse('2+2');
+		var expectedTree = new ParseTree(2,'+',2);
+
+		assert.deepEqual(tree,expectedTree);
 	});
 
-	it('should parenthesize an expression',function(){
-		assert.equal(parser.parse('1+1'),'(1+1)');
-	});
+	it('should recognise input and return a tree for multiple operators',function(){
+		var tree = parser.parse('2+2+3');
+		var expectedTree = new ParseTree(new ParseTree(2,'+',2),'+',3);
 
-	it('should parenthesize an expression with multiple operators',function(){
-		assert.equal(parser.parse('1+1+3'),'((1+1)+3)');
+		assert.deepEqual(tree,expectedTree);
 	});
 });

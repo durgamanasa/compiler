@@ -1,5 +1,6 @@
 %{
-    var path = require('path')
+    var path = require('path');
+    var ParseTree = require(path.resolve('./src/parseTree.js'));
 %}
 
 
@@ -26,7 +27,7 @@ expressions
 
 e
     : e '+' e
-        {$$ = '('+$1+$2+$3+')'}
+        {$$ = new ParseTree($1,$2,$3)}
     | NUMBER
         {$$ = Number(yytext)}
     ;
