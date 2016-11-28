@@ -70,6 +70,27 @@ describe('ParseTree',function(){
 			
 			assert.equal(result,5);	
 		});
+
+		it('should evaluate an exponent statement',function(){
+			var tree = parser.parse('2^2;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,4);	
+		});
+
+		it('should evaluate an exponent statement by using the assigned value',function(){
+			var tree = parser.parse('a=3;a^2;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,9);	
+		});
+
+		it('should evaluate an exponent statement with multiple operators',function(){
+			var tree = parser.parse('a=3;a^2*9+3;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,84);	
+		});
 		
 	});
 

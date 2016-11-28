@@ -6,6 +6,7 @@
     var NumberNode = require(path.resolve('./src/NumberNode.js'));
     var VariableNode = require(path.resolve('./src/VariableNode.js'));
     var AssignmentNode = require(path.resolve('./src/AssignmentNode.js'));
+    var ExponentNode = require(path.resolve('./src/ExponentNode.js'));
 
 %}
 
@@ -62,7 +63,7 @@ operation
     | operation '*' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '^' operation
-        {$$ = new ParseTree($1,new OperatorNode($2),$3)}
+        {$$ = new ParseTree($1,new ExponentNode($2),$3)}
     | operand
     | variable
     ;
