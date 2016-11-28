@@ -19,6 +19,7 @@
 '+'       return '+'
 '*'       return '*'
 '='       return '='
+'^'       return '^'
 ';'       return ';'
 <<EOF>>   return 'EOF'
 
@@ -26,6 +27,8 @@
 
 %left '+','-'
 %left '*','/'
+%left '^'
+
 
 %start expression
 
@@ -57,6 +60,8 @@ operation
     : operation '+' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '*' operation
+        {$$ = new ParseTree($1,new OperatorNode($2),$3)}
+    | operation '^' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operand
     | variable

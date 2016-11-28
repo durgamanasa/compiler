@@ -61,4 +61,19 @@ describe('Grammar',function(){
     							rightChild: { leftChild: { value: 2 } , root: {value:'*'}, rightChild: { value: 3 } } } ]
 		assert.deepEqual(tree.childTrees,expectedTree);
 	});
+
+	it('should recognise input and return a tree for the exponent statements',function(){
+		var tree = parser.parse('2^2;a=1;a^2;');
+		var expectedTree = [ {	leftChild: { value: 2 },
+    							root: { value: '^' },
+    							rightChild: { value: 2 } },
+  							 {	leftChild: { value: 'a' },
+    							root: { value: '=' },
+    							rightChild: { value: 1 } },
+  							 {	leftChild: { value: 'a' },
+    							root: { value: '^' },
+    							rightChild: { value: 2 } } ]
+
+		assert.deepEqual(tree.childTrees,expectedTree);
+	});
 });
