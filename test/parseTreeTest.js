@@ -1,4 +1,5 @@
 var assert = require('assert');
+var expect = require ('chai').expect;
 var ParseTree = require('../src/parseTree.js');
 var Parser = require('jison').Parser;
 var grammar = require('fs').readFileSync('./src/grammar.jison','utf8');

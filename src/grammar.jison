@@ -18,10 +18,14 @@
 \d+       return 'NUMBER'
 \w+       return 'VARIABLE'
 '+'       return '+'
+'-'       return '-'
 '*'       return '*'
 '='       return '='
 '^'       return '^'
 ';'       return ';'
+'('       return '('
+')'       return ')'
+
 <<EOF>>   return 'EOF'
 
 /lex
@@ -60,15 +64,27 @@ assignment
 operation
     : operation '+' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
+    | operation '-' operation
+        {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '*' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '^' operation
         {$$ = new ParseTree($1,new ExponentNode($2),$3)}
+    | specialOperation
     | operand
+    ;
+
+specialOperation
+    : '(' operation ')'
+        {$$ = $2}
+    ;  
+
+operand 
+    : number
     | variable
     ;
 
- operand 
+ number 
     : NUMBER 
         {$$ = new NumberNode(yytext)}
     ;  

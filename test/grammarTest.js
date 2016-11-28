@@ -76,4 +76,13 @@ describe('Grammar',function(){
 
 		assert.deepEqual(tree.childTrees,expectedTree);
 	});
+
+	it('should recognise input and return a tree for the parentheses exponent statements',function(){
+		var tree = parser.parse('(2^2)-(2^1);');
+		var expectedTree = [ {	leftChild: { leftChild: { value: 2 } , root: { value: '^' }, rightChild: { value: 2 } },
+    							root: { value: '-' },
+    							rightChild: { leftChild: { value: 2 }, root: { value: '^' }, rightChild: { value: 1 } } } ]
+		
+		assert.deepEqual(tree.childTrees,expectedTree);
+	});
 });

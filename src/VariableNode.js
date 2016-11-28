@@ -11,7 +11,6 @@ VariableNode.prototype = {
 	evaluate:function(){
 		return this.assignments[this.value];
 	}
-
 };
 
 module.exports = VariableNode;
