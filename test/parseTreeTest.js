@@ -1,5 +1,8 @@
 var assert = require('assert');
 var ParseTree = require('../src/parseTree.js');
+var Parser = require('jison').Parser;
+var grammar = require('fs').readFileSync('./src/grammar.jison','utf8');
+var parser = new Parser(grammar);
 
 describe('ParseTree',function(){
 	describe('represent',function(){
@@ -38,5 +41,36 @@ describe('ParseTree',function(){
 			assert.deepEqual(tree.representInWords(),expected);
 		});
 	});	
+
+	describe('evaluate',function(){
+		it('should evaluate a statement',function(){
+			var tree = parser.parse('2+2;');
+			var result = tree.evaluate();
+
+			assert.equal(result,4);	
+		});
+
+		it('should evaluate an assignment statement',function(){
+			var tree = parser.parse('a=1;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,1);	
+		});
+
+		it('should evaluate multiple statements',function(){
+			var tree = parser.parse('a=1;a+2;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,3);	
+		});
+
+		it('should evaluate multiple statements with multiple operators',function(){
+			var tree = parser.parse('a=1;a+2+a*2;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,5);	
+		});
+		
+	});
 
 });
