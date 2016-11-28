@@ -92,6 +92,13 @@ describe('ParseTree',function(){
 			
 			assert.equal(result,84);	
 		});
+
+		it('should evaluate the parentheses exponent statement with multiple operators',function(){
+			var tree = parser.parse('x=10;y=20;z=30;(x^2)+(y^2)-(z^2);');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,-400);	
+		});
 		
 	});
 
