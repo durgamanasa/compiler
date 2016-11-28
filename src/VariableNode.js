@@ -9,8 +9,13 @@ VariableNode.prototype = {
 		return this.assignments[this.value] = variable.value;
 	},
 	evaluate:function(){
-		return this.assignments[this.value];
+		if (this.assignments[this.value] == undefined) {
+			throw new Error(this.value +' is not defined.')
+		}else{
+			return this.assignments[this.value];
+		}
 	}
+
 };
 
 module.exports = VariableNode;

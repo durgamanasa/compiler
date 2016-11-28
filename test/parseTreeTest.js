@@ -51,6 +51,13 @@ describe('ParseTree',function(){
 			assert.equal(result,4);	
 		});
 
+		it('should throw an error when the variable is not defined',function(){
+			var tree = parser.parse('a+2;');
+			var result = function(){tree.evaluate();}
+
+			expect(result).to.throws(Error,'a is not defined')
+		});
+
 		it('should evaluate an assignment statement',function(){
 			var tree = parser.parse('a=1;');
 			var result = tree.evaluate();			
@@ -99,7 +106,5 @@ describe('ParseTree',function(){
 			
 			assert.equal(result,-400);	
 		});
-		
 	});
-
 });
