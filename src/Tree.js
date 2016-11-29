@@ -23,13 +23,7 @@ Tree.prototype = {
 	representAsJSCode : function(){
 		var results = '';
 		this.childTrees.forEach(function(childTree){
-			var exp = childTree.represent();
-			if (exp.indexOf('=') != -1) {
-				var expression = exp.substr(1).slice(0,-1);
-				results += 'var '+ expression +';';
-			}else{
-				results += 'console.log'+ exp +';';
-			}
+			results += childTree.representAsJSCode();
 		})
 		return results;
 	}
