@@ -13,9 +13,9 @@ var ParseTree = function(leftChild,root,rightChild){
 
 ParseTree.prototype = {
 	represent : function() {
-		var left = this.leftChild instanceof ParseTree ?  this.leftChild.represent() : this.leftChild ;
-		var right = this.rightChild instanceof ParseTree ?  this.rightChild.represent() : this.rightChild ;
-		return `(${left} ${this.root} ${right})`;
+		var left = this.leftChild instanceof ParseTree ?  this.leftChild.represent() : this.leftChild.value ;
+		var right = this.rightChild instanceof ParseTree ?  this.rightChild.represent() : this.rightChild.value ;
+		return `(${left} ${this.root.value} ${right})`;
 	},
 	representInWords : function(){
 		var left = this.leftChild instanceof ParseTree ?  this.leftChild.representInWords() : converter.toWords(this.leftChild) ;

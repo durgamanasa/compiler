@@ -8,15 +8,31 @@ var parser = new Parser(grammar);
 describe('ParseTree',function(){
 	describe('represent',function(){
 		it('should represent tree with parenthesis',function(){
-			var tree = new ParseTree(2,'+',3);
+			var tree = parser.parse('2+3;');
 			var expected = '(2 + 3)';
 			assert.equal(tree.represent(),expected);
 		});
 
 		it('should represent a nested tree with parenthesis',function(){
-			var tree = new ParseTree(new ParseTree(2,'+',4),'+',3);
+			var tree = parser.parse('2+4+3;');
 			var expected = '((2 + 4) + 3)';
 			assert.equal(tree.represent(),expected);
+		});
+
+		it('should represent the given statements as a js code',function(){
+			var tree = parser.parse('x=10;5+x*2;');
+			var actual = tree.representAsJSCode();
+			var expected = 'var x = 10;console.log(5 + (x * 2));';
+
+			assert.equal(actual,expected);	
+		});
+
+		it('should represent the given statements as a js code for multiple variables',function(){
+			var tree = parser.parse('x=10+y+z;5+x*2;');
+			var actual = tree.representAsJSCode();
+			var expected = 'var x = ((10 + y) + z);console.log(5 + (x * 2));';
+
+			assert.equal(actual,expected);	
 		});
 	});
 
