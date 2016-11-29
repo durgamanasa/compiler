@@ -106,5 +106,33 @@ describe('ParseTree',function(){
 			
 			assert.equal(result,-400);	
 		});
+
+		it('should evaluate the variable expressions',function(){
+			var tree = parser.parse('x=10;y=x+20;y+5;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,35);	
+		});
+
+		it('should evaluate the variable expressions with multiple operators',function(){
+			var tree = parser.parse('x=10;y=x+20;y+5;y+1+2+3/3+4+5-10*0/5;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,43);	
+		});
+
+		it('should evaluate the reassigned variables expressions',function(){
+			var tree = parser.parse('x=2;x=2^5;x;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,32);	
+		});
+
+		it('should evaluate the reassigned variables expressions with multiple operators',function(){
+			var tree = parser.parse('x=2;x=2^5;x=x*10;');
+			var result = tree.evaluate();			
+			
+			assert.equal(result,320);	
+		});
 	});
 });

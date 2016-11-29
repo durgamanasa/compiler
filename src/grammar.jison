@@ -20,8 +20,10 @@
 '+'       return '+'
 '-'       return '-'
 '*'       return '*'
+'/'       return '/'
 '='       return '='
 '^'       return '^'
+'!'       return '!'
 ';'       return ';'
 '('       return '('
 ')'       return ')'
@@ -32,7 +34,7 @@
 
 %left '+','-'
 %left '*','/'
-%left '^'
+%left '^','!'
 
 
 %start expression
@@ -57,7 +59,7 @@ statement
     ;
 
 assignment
-    : variable '=' operand 
+    : variable '=' operation 
         {$$ = new ParseTree($1,new AssignmentNode($2),$3)}
     ;   
 
@@ -67,6 +69,8 @@ operation
     | operation '-' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '*' operation
+        {$$ = new ParseTree($1,new OperatorNode($2),$3)}
+    | operation '/' operation
         {$$ = new ParseTree($1,new OperatorNode($2),$3)}
     | operation '^' operation
         {$$ = new ParseTree($1,new ExponentNode($2),$3)}

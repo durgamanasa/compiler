@@ -85,4 +85,23 @@ describe('Grammar',function(){
 		
 		assert.deepEqual(tree.childTrees,expectedTree);
 	});
+
+	it('should recognise input and return a tree for the variable expressions',function(){
+		var tree = parser.parse('x=10;y=x+20;y+5;');
+		var expectedTree = [ { leftChild: { value: 'x' },root: { value: '=' },rightChild: { value: 10 } },
+  							 { leftChild: { value: 'y' },root: { value: '=' },rightChild: { leftChild: {value: 'x'}, root: { value: '+' }, rightChild: { value: 20 } } },
+  							 { leftChild: { value: 'y' },root: { value: '+' },rightChild: { value: 5 } } ]
+
+		
+		assert.deepEqual(tree.childTrees,expectedTree);
+	});
+
+	it('should recognise input and return a tree for the reassigned variables expressions',function(){
+		var tree = parser.parse('x=2;x=2^5;x;');
+		var expectedTree = [ { leftChild: { value: 'x' },root: { value: '=' },rightChild: { value: 2 } },
+ 							 { leftChild: { value: 'x' },root: { value: '=' },rightChild: { leftChild: { value: 2 }, root: { value: '^' }, rightChild: { value: 5 } } },
+  							 { value: 'x' } ]
+
+		assert.deepEqual(tree.childTrees,expectedTree);
+	});
 });
