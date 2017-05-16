@@ -97,6 +97,7 @@ describe('Grammar',function(){
 	});
 
 	it('should recognise input and return a tree for the reassigned variables expressions',function(){
+		console.log("Hello Test")
 		var tree = parser.parse('x=2;x=2^5;x;');
 		var expectedTree = [ { leftChild: { value: 'x' },root: { value: '=' },rightChild: { value: 2 } },
  							 { leftChild: { value: 'x' },root: { value: '=' },rightChild: { leftChild: { value: 2 }, root: { value: '^' }, rightChild: { value: 5 } } },
