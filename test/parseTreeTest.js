@@ -146,6 +146,7 @@ describe('ParseTree',function(){
 
 		it('should evaluate the reassigned variables expressions with multiple operators',function(){
 			var tree = parser.parse('x=2;x=2^5;x=x*10;');
+			console.log("Hello Test")	
 			var result = tree.evaluate();			
 			
 			assert.equal(result,320);	
